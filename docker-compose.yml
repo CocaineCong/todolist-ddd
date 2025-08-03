@@ -1,0 +1,30 @@
+version: '3.7'
+
+networks:
+  todolist:
+    driver: bridge
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=todolist
+      - MYSQL_USER=todolist
+      - MYSQL_PASSWORD=todolist
+      - TZ=Asia/Shanghai
+#    volumes:
+#      - ./config/sql:/docker-entrypoint-initdb.d/
+    ports:
+      - "3306:3306"
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    volumes:
+      - /usr/local/redis:/usr/local/redis
+    ports:
+      - "6379:6379"
