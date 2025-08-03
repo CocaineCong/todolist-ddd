@@ -1,0 +1,22 @@
+server:
+  port: :3000
+  version: 1.0
+  jwtSecret: "todolist-dddd"
+
+mysql:
+  driverName: mysql
+  host: 127.0.0.1
+  port: 3306
+  database: todolist
+  username: todolist
+  password: todolist
+  charset: utf8mb4
+
+
+redis:
+  redisDbName: 4
+  redisHost: 127.0.0.1
+  redisPort: 6379
+  redisPassword: 123456
+  redisNetwork: "tcp"
+
