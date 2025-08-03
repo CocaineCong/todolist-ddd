@@ -20,7 +20,7 @@ func NewRepository(db *gorm.DB) repository.User {
 
 func (r *RepositoryImpl) CreateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	u := Entity2PO(user)
-	err := r.db.WithContext(ctx).Create(u).Error
+	err := r.db.WithContext(ctx).Model(&User{}).Create(u).Error
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func (r *RepositoryImpl) CreateUser(ctx context.Context, user *entity.User) (*en
 
 func (r *RepositoryImpl) GetUserByName(ctx context.Context, username string) (*entity.User, error) {
 	var u *User
-	err := r.db.WithContext(ctx).Where("user_name = ?", username).Find(&u).Error
+	err := r.db.WithContext(ctx).Model(&User{}).Where("user_name = ?", username).Find(&u).Error
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (r *RepositoryImpl) GetUserByName(ctx context.Context, username string) (*e
 
 func (r *RepositoryImpl) GetUserByID(ctx context.Context, id uint) (*entity.User, error) {
 	var u *User
-	err := r.db.WithContext(ctx).Where("id = ?", id).Find(&u).Error
+	err := r.db.WithContext(ctx).Model(&User{}).Where("id = ?", id).Find(&u).Error
 	if err != nil {
 		return nil, err
 	}

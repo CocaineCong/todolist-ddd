@@ -1,12 +1,19 @@
 package dbs
 
+import (
+	"github.com/CocaineCong/todolist-ddd/infra/persistence/task"
+	"github.com/CocaineCong/todolist-ddd/infra/persistence/user"
+)
+
 // 执行数据迁移
 func migration() {
 	// 自动迁移模式
 	err := DB.Set("gorm:table_options", "charset=utf8mb4").
-		AutoMigrate(&model.User{}, &model.Task{})
+		AutoMigrate(
+			&user.User{},
+			&task.Task{},
+		)
 	if err != nil {
 		return
 	}
-	// DB.Model(&Task{}).AddForeignKey("uid","User(id)","CASCADE","CASCADE")
 }

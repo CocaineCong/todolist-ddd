@@ -15,12 +15,14 @@ type Service interface {
 	GetUserInfo(ctx context.Context) (any, error)
 }
 
-var ServiceImplIns *ServiceImpl
-var ServiceImplOnce sync.Once
-
 type ServiceImpl struct {
 	ud service.UserDomain
 }
+
+var (
+	ServiceImplIns  *ServiceImpl
+	ServiceImplOnce sync.Once
+)
 
 func GetServiceImpl(srv service.UserDomain) *ServiceImpl {
 	ServiceImplOnce.Do(func() {
@@ -29,8 +31,9 @@ func GetServiceImpl(srv service.UserDomain) *ServiceImpl {
 	return ServiceImplIns
 }
 
+// Register 用户注册
 func (s *ServiceImpl) Register(ctx context.Context, req *types.UserReq) (any, error) {
-	entity := types.UserDTO2Entity(req)
+	entity := Dto2Entity(req)
 	// 加密
 	entityEncrypt, err := s.ud.EncryptPwd(ctx, entity)
 	if err != nil {
@@ -49,8 +52,9 @@ func (s *ServiceImpl) Register(ctx context.Context, req *types.UserReq) (any, er
 	return resp, nil
 }
 
+// Login 用户登陆
 func (s *ServiceImpl) Login(ctx context.Context, req *types.UserReq) (any, error) {
-	entity := types.UserDTO2Entity(req)
+	entity := Dto2Entity(req)
 	user, err := s.ud.FindUserByName(ctx, req.UserName)
 	if err != nil {
 		return nil, err

@@ -24,7 +24,7 @@ func NewRouter() *gin.Engine {
 			// 任务操作
 			authed.POST("create", api.CreateTaskHandler())
 			authed.GET("list", api.ListTaskHandler())
-			authed.GET("show", api.ShowTaskHandler())
+			authed.GET("detail", api.DetailTaskHandler())
 			authed.POST("update", api.UpdateTaskHandler())
 			authed.POST("search", api.SearchTaskHandler())
 			authed.POST("delete", api.DeleteTaskHandler())

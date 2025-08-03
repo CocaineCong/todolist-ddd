@@ -5,9 +5,9 @@ import (
 )
 
 type User struct {
-	ID        uint
-	Username  string
-	Password  string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID        uint      `json:"id"`
+	Username  string    `json:"username"`
+	Password  string    `json:"password"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }

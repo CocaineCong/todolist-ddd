@@ -25,7 +25,6 @@ func UserRegisterHandler() gin.HandlerFunc {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "bind req param failed"))
 		}
-
 	}
 }
 
@@ -41,8 +40,7 @@ func UserLoginHandler() gin.HandlerFunc {
 			ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
 		} else {
 			util.LogrusObj.Infoln(err)
-			ctx.JSON(http.StatusOK, ctl.RespError(err, "bind req param failed"))
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "bind req"))
 		}
-
 	}
 }

@@ -1,6 +1,17 @@
 package types
 
-type ShowTaskReq struct {
+import (
+	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
+)
+
+type List[T any] struct {
+	Count int64 `json:"count"`
+	Items []T   `json:"items"`
+}
+
+var TaskListResp = List[*entity.Task]{}
+
+type DetailReq struct {
 	Id uint `json:"id" form:"id"`
 }
 
@@ -21,16 +32,20 @@ type CreateTaskReq struct {
 	Status  int    `form:"status" json:"status"` // 0 待办   1已完成
 }
 
+type Pagination struct {
+	Page     int `form:"page" json:"page"`
+	PageSize int `form:"page_size" json:"page_size"`
+}
+
 type SearchTaskReq struct {
 	Info string `form:"info" json:"info"`
+	Pagination
 }
 
 type ListTasksReq struct {
-	Limit int `form:"limit" json:"limit"`
-	Start int `form:"start" json:"start"`
+	Pagination
 }
 
-// swagger:response Resp
 type TaskResp struct {
 	ID        uint   `json:"id" example:"1"`       // 任务ID
 	Title     string `json:"title" example:"吃饭"`   // 题目
