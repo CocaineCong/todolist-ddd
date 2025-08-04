@@ -2,7 +2,7 @@ package task
 
 import (
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
-	"github.com/CocaineCong/todolist-ddd/infra/persistence/user"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/persistence/user"
 )
 
 func Entity2PO(task *entity.Task) *Task {

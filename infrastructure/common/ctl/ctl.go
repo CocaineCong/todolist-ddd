@@ -1,7 +1,7 @@
 package ctl
 
 import (
-	"github.com/CocaineCong/todolist-ddd/infra/common/e"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/common/e"
 )
 
 // Response 基础序列化器

@@ -5,8 +5,8 @@ import (
 	userApp "github.com/CocaineCong/todolist-ddd/application/user"
 	taskSrv "github.com/CocaineCong/todolist-ddd/domain/task/service"
 	userSrv "github.com/CocaineCong/todolist-ddd/domain/user/service"
-	"github.com/CocaineCong/todolist-ddd/infra/dbs"
-	"github.com/CocaineCong/todolist-ddd/infra/persistence"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/dbs"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/persistence"
 )
 
 func LoadingDomain() {

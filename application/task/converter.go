@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
-	lctx "github.com/CocaineCong/todolist-ddd/infra/common/context"
-	"github.com/CocaineCong/todolist-ddd/interfaces/types"
+	lctx "github.com/CocaineCong/todolist-ddd/infrastructure/common/context"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 )
 
 func CreateReqDTO2Entity(ctx context.Context, task *types.CreateTaskReq) (*entity.Task, error) {

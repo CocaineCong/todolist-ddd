@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/CocaineCong/todolist-ddd/domain/task/service"
-	"github.com/CocaineCong/todolist-ddd/interfaces/types"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 )
 
 type Service interface {

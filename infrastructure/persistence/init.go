@@ -5,8 +5,8 @@ import (
 
 	tRepo "github.com/CocaineCong/todolist-ddd/domain/task/repository"
 	uRepo "github.com/CocaineCong/todolist-ddd/domain/user/repository"
-	"github.com/CocaineCong/todolist-ddd/infra/persistence/task"
-	"github.com/CocaineCong/todolist-ddd/infra/persistence/user"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/persistence/task"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/persistence/user"
 )
 
 type Repositories struct {

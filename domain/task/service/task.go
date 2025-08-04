@@ -5,8 +5,8 @@ import (
 
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
 	"github.com/CocaineCong/todolist-ddd/domain/task/repository"
-	lctx "github.com/CocaineCong/todolist-ddd/infra/common/context"
-	"github.com/CocaineCong/todolist-ddd/interfaces/types"
+	lctx "github.com/CocaineCong/todolist-ddd/infrastructure/common/context"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 )
 
 type TaskDomain interface {

@@ -6,9 +6,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	lctx "github.com/CocaineCong/todolist-ddd/infra/common/context"
-	"github.com/CocaineCong/todolist-ddd/infra/common/e"
-	"github.com/CocaineCong/todolist-ddd/infra/common/jwt"
+	lctx "github.com/CocaineCong/todolist-ddd/infrastructure/common/context"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/common/e"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/common/jwt"
 )
 
 // JWT token验证中间件

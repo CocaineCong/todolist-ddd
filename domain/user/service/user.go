@@ -6,8 +6,8 @@ import (
 
 	"github.com/CocaineCong/todolist-ddd/domain/user/entity"
 	"github.com/CocaineCong/todolist-ddd/domain/user/repository"
-	"github.com/CocaineCong/todolist-ddd/infra/common/jwt"
-	"github.com/CocaineCong/todolist-ddd/infra/common/util"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/common/jwt"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/common/util"
 )
 
 type UserDomain interface {
