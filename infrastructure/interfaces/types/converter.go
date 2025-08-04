@@ -1,15 +1,15 @@
-package task
+package types
 
 import (
 	"context"
 	"time"
 
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
+	ue "github.com/CocaineCong/todolist-ddd/domain/user/entity"
 	lctx "github.com/CocaineCong/todolist-ddd/infrastructure/common/context"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 )
 
-func CreateReqDTO2Entity(ctx context.Context, task *types.CreateTaskReq) (*entity.Task, error) {
+func CreateReqDTO2Entity(ctx context.Context, task *CreateTaskReq) (*entity.Task, error) {
 	userInfo, err := lctx.GetUserInfo(ctx)
 	if err != nil {
 		return nil, err
@@ -25,7 +25,7 @@ func CreateReqDTO2Entity(ctx context.Context, task *types.CreateTaskReq) (*entit
 	}, nil
 }
 
-func UpdateReqDTO2Entity(ctx context.Context, task *types.UpdateTaskReq) (*entity.Task, error) {
+func UpdateReqDTO2Entity(ctx context.Context, task *UpdateTaskReq) (*entity.Task, error) {
 	userInfo, err := lctx.GetUserInfo(ctx)
 	if err != nil {
 		return nil, err
@@ -41,8 +41,8 @@ func UpdateReqDTO2Entity(ctx context.Context, task *types.UpdateTaskReq) (*entit
 	}, nil
 }
 
-func Entity2TaskResp(task *entity.Task) *types.TaskResp {
-	return &types.TaskResp{
+func Entity2TaskResp(task *entity.Task) *TaskResp {
+	return &TaskResp{
 		ID:        task.Id,
 		Title:     task.Title,
 		Content:   task.Content,
@@ -51,5 +51,12 @@ func Entity2TaskResp(task *entity.Task) *types.TaskResp {
 		CreatedAt: task.CreatedAt.Unix(),
 		StartTime: task.StartTime,
 		EndTime:   task.EndTime,
+	}
+}
+
+func UserReq2Entity(user *UserReq) *ue.User {
+	return &ue.User{
+		Username: user.UserName,
+		Password: user.Password,
 	}
 }

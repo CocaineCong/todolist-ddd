@@ -5,6 +5,7 @@ import (
 	"errors"
 	"sync"
 
+	"github.com/CocaineCong/todolist-ddd/domain/user/entity"
 	"github.com/CocaineCong/todolist-ddd/domain/user/service"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 )
@@ -32,8 +33,7 @@ func GetServiceImpl(srv service.UserDomain) *ServiceImpl {
 }
 
 // Register 用户注册
-func (s *ServiceImpl) Register(ctx context.Context, req *types.UserReq) (any, error) {
-	entity := Dto2Entity(req)
+func (s *ServiceImpl) Register(ctx context.Context, entity *entity.User) (any, error) {
 	// 加密
 	entityEncrypt, err := s.ud.EncryptPwd(ctx, entity)
 	if err != nil {
@@ -53,9 +53,8 @@ func (s *ServiceImpl) Register(ctx context.Context, req *types.UserReq) (any, er
 }
 
 // Login 用户登陆
-func (s *ServiceImpl) Login(ctx context.Context, req *types.UserReq) (any, error) {
-	entity := Dto2Entity(req)
-	user, err := s.ud.FindUserByName(ctx, req.UserName)
+func (s *ServiceImpl) Login(ctx context.Context, entity *entity.User) (any, error) {
+	user, err := s.ud.FindUserByName(ctx, entity.Username)
 	if err != nil {
 		return nil, err
 	}

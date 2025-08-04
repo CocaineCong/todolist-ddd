@@ -14,33 +14,37 @@ import (
 func UserRegisterHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req types.UserReq
-		if err := ctx.ShouldBind(&req); err == nil {
-			resp, err := user.ServiceImplIns.Register(ctx, &req)
-			if err != nil {
-				ctx.JSON(http.StatusOK, ctl.RespError(err, "register failed"))
-				return
-			}
-			ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
-		} else {
+		err := ctx.ShouldBind(&req)
+		if err != nil {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "bind req param failed"))
+			return
 		}
+		userEntity := types.UserReq2Entity(&req)
+		resp, err := user.ServiceImplIns.Register(ctx, userEntity)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "register failed"))
+			return
+		}
+		ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
 	}
 }
 
 func UserLoginHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req types.UserReq
-		if err := ctx.ShouldBind(&req); err == nil {
-			resp, err := user.ServiceImplIns.Login(ctx, &req)
-			if err != nil {
-				ctx.JSON(http.StatusOK, ctl.RespError(err, "login failed"))
-				return
-			}
-			ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
-		} else {
+		err := ctx.ShouldBind(&req)
+		if err == nil {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "bind req"))
+			return
 		}
+		entity := types.UserReq2Entity(&req)
+		resp, err := user.ServiceImplIns.Login(ctx, entity)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "login failed"))
+			return
+		}
+		ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
 	}
 }

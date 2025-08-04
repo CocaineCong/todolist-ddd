@@ -14,113 +14,125 @@ import (
 func CreateTaskHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req types.CreateTaskReq
-		if err := ctx.ShouldBind(&req); err == nil {
-			resp, err := task.ServiceImplIns.CreateTask(ctx.Request.Context(), &req)
-			if err != nil {
-				ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to create task"))
-				return
-			}
-			ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
-		} else {
+		err := ctx.ShouldBind(&req)
+		if err == nil {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
+			return
 		}
-
+		taskEntity, err := types.CreateReqDTO2Entity(ctx, &req)
+		if err != nil {
+			util.LogrusObj.Infoln(err)
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "task entity"))
+			return
+		}
+		result, err := task.ServiceImplIns.CreateTask(ctx.Request.Context(), taskEntity)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to create task"))
+			return
+		}
+		resp := types.Entity2TaskResp(result)
+		ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
 	}
 }
 
 func ListTaskHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req types.ListTasksReq
-		if err := ctx.ShouldBind(&req); err == nil {
-			l := task.ServiceImplIns
-			resp, err := l.ListTask(ctx.Request.Context(), &req)
-			if err != nil {
-				ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to list task"))
-				return
-			}
-			ctx.JSON(http.StatusOK, resp)
-		} else {
+		err := ctx.ShouldBind(&req)
+		if err != nil {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
+			return
 		}
-
+		l := task.ServiceImplIns
+		resp, err := l.ListTask(ctx.Request.Context(), &req)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to list task"))
+			return
+		}
+		ctx.JSON(http.StatusOK, resp)
 	}
 }
 
 func DetailTaskHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req types.DetailReq
-		if err := ctx.ShouldBind(&req); err == nil {
-			// 参数校验
-			l := task.ServiceImplIns
-			resp, err := l.DetailTask(ctx.Request.Context(), &req)
-			if err != nil {
-				ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to show task"))
-				return
-			}
-			ctx.JSON(http.StatusOK, resp)
-		} else {
+		err := ctx.ShouldBind(&req)
+		if err != nil {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
+			return
 		}
-
+		l := task.ServiceImplIns
+		result, err := l.DetailTask(ctx.Request.Context(), &req)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to show task"))
+			return
+		}
+		resp := types.Entity2TaskResp(result)
+		ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
 	}
 }
 
 func DeleteTaskHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req types.DeleteTaskReq
-		if err := ctx.ShouldBind(&req); err == nil {
-			l := task.ServiceImplIns
-			resp, err := l.DeleteTask(ctx.Request.Context(), &req)
-			if err != nil {
-				ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to delete task"))
-				return
-			}
-			ctx.JSON(http.StatusOK, resp)
-		} else {
+		err := ctx.ShouldBind(&req)
+		if err != nil {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
+			return
 		}
-
+		l := task.ServiceImplIns
+		err = l.DeleteTask(ctx.Request.Context(), &req)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to delete task"))
+			return
+		}
+		ctx.JSON(http.StatusOK, ctl.RespSuccess())
 	}
 }
 
 func UpdateTaskHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		req := new(types.UpdateTaskReq)
-		if err := ctx.ShouldBind(&req); err == nil {
-			l := task.ServiceImplIns
-			err = l.UpdateTask(ctx.Request.Context(), req)
-			if err != nil {
-				ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to update task"))
-				return
-			}
-			ctx.JSON(http.StatusOK, ctl.RespSuccess())
-		} else {
+		err := ctx.ShouldBind(&req)
+		if err != nil {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
+			return
 		}
-
+		l := task.ServiceImplIns
+		task, err := types.UpdateReqDTO2Entity(ctx, req)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "conv failed"))
+			return
+		}
+		err = l.UpdateTask(ctx.Request.Context(), task)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to update task"))
+			return
+		}
+		ctx.JSON(http.StatusOK, ctl.RespSuccess())
 	}
 }
 
 func SearchTaskHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req types.SearchTaskReq
-		if err := ctx.ShouldBind(&req); err == nil {
-			l := task.ServiceImplIns
-			resp, err := l.SearchTask(ctx.Request.Context(), &req)
-			if err != nil {
-				ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to search task"))
-				return
-			}
-			ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
-		} else {
+		err := ctx.ShouldBind(&req)
+		if err != nil {
 			util.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
+			return
 		}
-
+		l := task.ServiceImplIns
+		resp, err := l.SearchTask(ctx.Request.Context(), &req)
+		if err != nil {
+			ctx.JSON(http.StatusOK, ctl.RespError(err, "failed to search task"))
+			return
+		}
+		ctx.JSON(http.StatusOK, ctl.RespSuccessWithData(resp))
 	}
 }
