@@ -35,8 +35,8 @@ func GetServiceImpl(srv service.UserDomain) *ServiceImpl {
 }
 
 // Register 用户注册
-func (s *ServiceImpl) Register(ctx context.Context, entity *entity.User) (any, error) {
-	userExist, err := s.ud.FindUserByName(ctx, entity.Username)
+func (s *ServiceImpl) Register(ctx context.Context, userEntity *entity.User) (any, error) {
+	userExist, err := s.ud.FindUserByName(ctx, userEntity.Username)
 	if err != nil {
 		return nil, err
 	}
@@ -44,12 +44,12 @@ func (s *ServiceImpl) Register(ctx context.Context, entity *entity.User) (any, e
 		return nil, errors.New("user exist")
 	}
 	// 加密
-	entityEncrypt, err := s.ud.EncryptPwd(ctx, entity)
+	err = userEntity.EncryptPwd(userEntity.Password)
 	if err != nil {
 		return nil, err
 	}
 	// 创建用户
-	user, err := s.ud.CreateUser(ctx, entityEncrypt)
+	user, err := s.ud.CreateUser(ctx, userEntity)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (s *ServiceImpl) Login(ctx context.Context, entity *entity.User) (any, erro
 	}
 
 	// 检查密码
-	err = s.ud.CheckPwd(ctx, user, entity.Password)
+	err = user.CheckPwd(entity.Password)
 	if err != nil {
 		return nil, errors.New("invalid password")
 	}
