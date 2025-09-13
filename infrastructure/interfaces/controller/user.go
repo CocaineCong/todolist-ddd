@@ -7,7 +7,7 @@ import (
 
 	"github.com/CocaineCong/todolist-ddd/application/user"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/common/ctl"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/common/util"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/common/log"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 )
 
@@ -16,7 +16,7 @@ func UserRegisterHandler() gin.HandlerFunc {
 		var req types.UserReq
 		err := ctx.ShouldBind(&req)
 		if err != nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "bind req param failed"))
 			return
 		}
@@ -35,7 +35,7 @@ func UserLoginHandler() gin.HandlerFunc {
 		var req types.UserReq
 		err := ctx.ShouldBind(&req)
 		if err == nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "bind req"))
 			return
 		}

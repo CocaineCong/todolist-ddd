@@ -40,7 +40,7 @@ func (s *ServiceImpl) Register(ctx context.Context, userEntity *entity.User) (an
 	if err != nil {
 		return nil, err
 	}
-	if userExist.ID != 0 {
+	if userExist.IsActive() {
 		return nil, errors.New("user exist")
 	}
 	// 加密

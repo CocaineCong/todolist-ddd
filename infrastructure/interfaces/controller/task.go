@@ -7,7 +7,7 @@ import (
 
 	"github.com/CocaineCong/todolist-ddd/application/task"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/common/ctl"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/common/util"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/common/log"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 )
 
@@ -16,13 +16,13 @@ func CreateTaskHandler() gin.HandlerFunc {
 		var req types.CreateTaskReq
 		err := ctx.ShouldBind(&req)
 		if err == nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
 			return
 		}
 		taskEntity, err := types.CreateReqDTO2Entity(ctx, &req)
 		if err != nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "task entity"))
 			return
 		}
@@ -41,7 +41,7 @@ func ListTaskHandler() gin.HandlerFunc {
 		var req types.ListTasksReq
 		err := ctx.ShouldBind(&req)
 		if err != nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
 			return
 		}
@@ -60,7 +60,7 @@ func DetailTaskHandler() gin.HandlerFunc {
 		var req types.DetailReq
 		err := ctx.ShouldBind(&req)
 		if err != nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
 			return
 		}
@@ -80,7 +80,7 @@ func DeleteTaskHandler() gin.HandlerFunc {
 		var req types.DeleteTaskReq
 		err := ctx.ShouldBind(&req)
 		if err != nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
 			return
 		}
@@ -99,7 +99,7 @@ func UpdateTaskHandler() gin.HandlerFunc {
 		req := new(types.UpdateTaskReq)
 		err := ctx.ShouldBind(&req)
 		if err != nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
 			return
 		}
@@ -123,7 +123,7 @@ func SearchTaskHandler() gin.HandlerFunc {
 		var req types.SearchTaskReq
 		err := ctx.ShouldBind(&req)
 		if err != nil {
-			util.LogrusObj.Infoln(err)
+			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, ctl.RespError(err, "invalid request"))
 			return
 		}

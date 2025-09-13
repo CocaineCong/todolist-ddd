@@ -3,6 +3,7 @@ package main
 import (
 	config "github.com/CocaineCong/todolist-ddd/conf"
 	"github.com/CocaineCong/todolist-ddd/domain"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/common/log"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/dbs"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/adapter/initialize"
 )
@@ -17,6 +18,7 @@ func main() {
 // loadingInfra 加载基础架构信息
 func loadingInfra() {
 	config.InitConfig()
+	log.InitLog()
 	dbs.MySQLInit()
 }
 
