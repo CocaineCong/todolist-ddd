@@ -6,7 +6,6 @@ import (
 
 	"github.com/CocaineCong/todolist-ddd/domain/user/entity"
 	"github.com/CocaineCong/todolist-ddd/domain/user/repository"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/common/jwt"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/common/util"
 )
 
@@ -14,8 +13,6 @@ type UserDomain interface {
 	CreateUser(ctx context.Context, user *entity.User) (*entity.User, error)
 	EncryptPwd(ctx context.Context, user *entity.User) (*entity.User, error)
 	CheckPwd(ctx context.Context, user *entity.User, pwd string) error
-	GenerateToken(ctx context.Context, user *entity.User) (string, error)
-	ParseToken(ctx context.Context, token string) (*entity.User, error)
 	FindUserByName(ctx context.Context, name string) (*entity.User, error)
 	GetUserDetail(ctx context.Context, id uint) (*entity.User, error)
 }
@@ -59,25 +56,4 @@ func (u *UserDomainImpl) FindUserByName(ctx context.Context, username string) (*
 // GetUserDetail 获取用户信息
 func (u *UserDomainImpl) GetUserDetail(ctx context.Context, id uint) (*entity.User, error) {
 	return u.repo.GetUserByID(ctx, id)
-}
-
-// GenerateToken 生成token
-func (u *UserDomainImpl) GenerateToken(_ context.Context, user *entity.User) (string, error) {
-	token, err := jwt.GenerateToken(user.ID, user.Username)
-	if err != nil {
-		return "", err
-	}
-	return token, nil
-}
-
-// ParseToken 解密token
-func (u *UserDomainImpl) ParseToken(_ context.Context, token string) (*entity.User, error) {
-	claim, err := jwt.ParseToken(token)
-	if err != nil {
-		return nil, err
-	}
-	return &entity.User{
-		ID:       claim.Id,
-		Username: claim.Username,
-	}, nil
 }
