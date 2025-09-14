@@ -1,7 +1,7 @@
-package ctl
+package types
 
 import (
-	"github.com/CocaineCong/todolist-ddd/infrastructure/common/e"
+	"github.com/CocaineCong/todolist-ddd/infrastructure/consts"
 )
 
 // Response 基础序列化器
@@ -19,12 +19,12 @@ type DataList struct {
 	Total int64       `json:"total"`
 }
 
-// TokenData 带有token的Data结构
-type TokenData struct {
-	User         interface{} `json:"user"`
-	AccessToken  string      `json:"access_token"`
-	RefreshToken string      `json:"refresh_token"`
-}
+// // TokenData 带有token的Data结构
+// type TokenData struct {
+// 	User         interface{} `json:"user"`
+// 	AccessToken  string      `json:"access_token"`
+// 	RefreshToken string      `json:"refresh_token"`
+// }
 
 // RespList 带有总数的列表构建器
 func RespList(items interface{}, total int64) Response {
@@ -40,7 +40,7 @@ func RespList(items interface{}, total int64) Response {
 
 // RespSuccess 成功返回
 func RespSuccess(code ...int) *Response {
-	status := e.SUCCESS
+	status := consts.SUCCESS
 	if code != nil {
 		status = code[0]
 	}
@@ -48,7 +48,7 @@ func RespSuccess(code ...int) *Response {
 	r := &Response{
 		Status: status,
 		Data:   "操作成功",
-		Msg:    e.GetMsg(status),
+		Msg:    consts.GetMsg(status),
 	}
 
 	return r
@@ -56,7 +56,7 @@ func RespSuccess(code ...int) *Response {
 
 // RespSuccessWithData 带data成功返回
 func RespSuccessWithData(data interface{}, code ...int) *Response {
-	status := e.SUCCESS
+	status := consts.SUCCESS
 	if code != nil {
 		status = code[0]
 	}
@@ -64,7 +64,7 @@ func RespSuccessWithData(data interface{}, code ...int) *Response {
 	r := &Response{
 		Status: status,
 		Data:   data,
-		Msg:    e.GetMsg(status),
+		Msg:    consts.GetMsg(status),
 	}
 
 	return r
@@ -72,14 +72,14 @@ func RespSuccessWithData(data interface{}, code ...int) *Response {
 
 // RespError 错误返回
 func RespError(err error, data string, code ...int) *Response {
-	status := e.ERROR
+	status := consts.ERROR
 	if code != nil {
 		status = code[0]
 	}
 
 	r := &Response{
 		Status: status,
-		Msg:    e.GetMsg(status),
+		Msg:    consts.GetMsg(status),
 		Data:   data,
 		Error:  err.Error(),
 	}

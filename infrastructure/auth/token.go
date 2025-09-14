@@ -23,6 +23,10 @@ type TokenService interface {
 type JWTTokenService struct {
 }
 
+func NewJWTTokenService() TokenService {
+	return &JWTTokenService{}
+}
+
 // GenerateToken 签发用户Token
 func (j *JWTTokenService) GenerateToken(ctx context.Context, id uint, username string) (string, error) {
 	nowTime := time.Now()

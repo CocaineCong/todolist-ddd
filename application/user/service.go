@@ -27,9 +27,12 @@ var (
 	ServiceImplOnce sync.Once
 )
 
-func GetServiceImpl(srv service.UserDomain) *ServiceImpl {
+func GetServiceImpl(srv service.UserDomain, jwt auth.TokenService) *ServiceImpl {
 	ServiceImplOnce.Do(func() {
-		ServiceImplIns = &ServiceImpl{ud: srv}
+		ServiceImplIns = &ServiceImpl{
+			ud:           srv,
+			tokenService: jwt,
+		}
 	})
 	return ServiceImplIns
 }

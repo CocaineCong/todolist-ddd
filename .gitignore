@@ -23,7 +23,7 @@ profile.cov
 # Go workspace file
 go.work
 go.work.sum
-
+logs/
 # env file
 .env
 .idea/
