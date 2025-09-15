@@ -12,20 +12,14 @@ import (
 
 func CreateTaskHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var req types.CreateTaskReq
+		var req *types.CreateTaskReq
 		err := ctx.ShouldBind(&req)
 		if err == nil {
 			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, types.RespError(err, "invalid request"))
 			return
 		}
-		taskEntity, err := types.CreateReqDTO2Entity(ctx, &req)
-		if err != nil {
-			log.LogrusObj.Infoln(err)
-			ctx.JSON(http.StatusOK, types.RespError(err, "task entity"))
-			return
-		}
-		result, err := task.ServiceImplIns.CreateTask(ctx.Request.Context(), taskEntity)
+		result, err := task.ServiceImplIns.CreateTask(ctx.Request.Context(), req)
 		if err != nil {
 			ctx.JSON(http.StatusOK, types.RespError(err, "failed to create task"))
 			return
@@ -44,8 +38,7 @@ func ListTaskHandler() gin.HandlerFunc {
 			ctx.JSON(http.StatusOK, types.RespError(err, "invalid request"))
 			return
 		}
-		l := task.ServiceImplIns
-		resp, err := l.ListTask(ctx.Request.Context(), &req)
+		resp, err := task.ServiceImplIns.ListTask(ctx.Request.Context(), &req)
 		if err != nil {
 			ctx.JSON(http.StatusOK, types.RespError(err, "failed to list task"))
 			return
@@ -63,8 +56,7 @@ func DetailTaskHandler() gin.HandlerFunc {
 			ctx.JSON(http.StatusOK, types.RespError(err, "invalid request"))
 			return
 		}
-		l := task.ServiceImplIns
-		result, err := l.DetailTask(ctx.Request.Context(), &req)
+		result, err := task.ServiceImplIns.DetailTask(ctx.Request.Context(), &req)
 		if err != nil {
 			ctx.JSON(http.StatusOK, types.RespError(err, "failed to show task"))
 			return
@@ -83,8 +75,7 @@ func DeleteTaskHandler() gin.HandlerFunc {
 			ctx.JSON(http.StatusOK, types.RespError(err, "invalid request"))
 			return
 		}
-		l := task.ServiceImplIns
-		err = l.DeleteTask(ctx.Request.Context(), &req)
+		err = task.ServiceImplIns.DeleteTask(ctx.Request.Context(), &req)
 		if err != nil {
 			ctx.JSON(http.StatusOK, types.RespError(err, "failed to delete task"))
 			return
@@ -102,13 +93,7 @@ func UpdateTaskHandler() gin.HandlerFunc {
 			ctx.JSON(http.StatusOK, types.RespError(err, "invalid request"))
 			return
 		}
-		l := task.ServiceImplIns
-		t, err := types.UpdateReqDTO2Entity(ctx, req)
-		if err != nil {
-			ctx.JSON(http.StatusOK, types.RespError(err, "conv failed"))
-			return
-		}
-		err = l.UpdateTask(ctx.Request.Context(), t)
+		err = task.ServiceImplIns.UpdateTask(ctx.Request.Context(), req)
 		if err != nil {
 			ctx.JSON(http.StatusOK, types.RespError(err, "failed to update task"))
 			return
@@ -126,8 +111,7 @@ func SearchTaskHandler() gin.HandlerFunc {
 			ctx.JSON(http.StatusOK, types.RespError(err, "invalid request"))
 			return
 		}
-		l := task.ServiceImplIns
-		resp, err := l.SearchTask(ctx.Request.Context(), &req)
+		resp, err := task.ServiceImplIns.SearchTask(ctx.Request.Context(), &req)
 		if err != nil {
 			ctx.JSON(http.StatusOK, types.RespError(err, "failed to search task"))
 			return

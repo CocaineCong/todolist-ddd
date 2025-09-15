@@ -20,7 +20,7 @@ type Task struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-func NewTask(uid uint, title, content string) (*Task, error) {
+func NewTask(uid uint, userName, title, content string) (*Task, error) {
 	if uid == 0 {
 		return nil, errors.New("owner ID cannot be empty")
 	}
@@ -31,11 +31,40 @@ func NewTask(uid uint, title, content string) (*Task, error) {
 	return &Task{
 		Uid:       uid,
 		Title:     title,
+		UserName:  userName,
 		Status:    consts.TaskStatusEmunInit,
 		Content:   content,
 		StartTime: now.Unix(),
 		CreatedAt: now,
 	}, nil
+}
+
+func (t *Task) SetUID(uid uint) {
+	t.Uid = uid
+}
+
+func (t *Task) SetUserName(username string) {
+	t.UserName = username
+}
+
+func (t *Task) SetTitle(title string) {
+	t.Title = title
+}
+
+func (t *Task) SetStatus(status int) {
+	t.Status = status
+}
+
+func (t *Task) SetContent(content string) {
+	t.Content = content
+}
+
+func (t *Task) SetStartTime(startTime int64) {
+	t.StartTime = startTime
+}
+
+func (t *Task) SetEndTime(endTime int64) {
+	t.EndTime = endTime
 }
 
 func (t *Task) Complete() error {

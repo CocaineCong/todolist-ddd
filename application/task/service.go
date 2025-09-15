@@ -2,6 +2,7 @@ package task
 
 import (
 	"context"
+	"errors"
 	"sync"
 
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
@@ -11,10 +12,10 @@ import (
 )
 
 type Service interface {
-	CreateTask(ctx context.Context, task *entity.Task) (*entity.Task, error)
+	CreateTask(ctx context.Context, req *types.CreateTaskReq) (*entity.Task, error)
 	ListTask(ctx context.Context, req *types.ListTasksReq) (any, error)
 	DetailTask(ctx context.Context, req *types.DetailReq) (*entity.Task, error)
-	UpdateTask(ctx context.Context, task *entity.Task) error
+	UpdateTask(ctx context.Context, req *types.UpdateTaskReq) error
 	SearchTask(ctx context.Context, req *types.SearchTaskReq) (any, error)
 	DeleteTask(ctx context.Context, req *types.DeleteTaskReq) error
 }
@@ -35,15 +36,16 @@ func GetServiceImpl(srv service.TaskDomain) *ServiceImpl {
 	return ServiceImplIns
 }
 
-func (s *ServiceImpl) CreateTask(ctx context.Context, task *entity.Task) (*entity.Task, error) {
+func (s *ServiceImpl) CreateTask(ctx context.Context, req *types.CreateTaskReq) (*entity.Task, error) {
 	// 获取用户信息
 	userInfo, err := ctl.GetUserInfo(ctx)
 	if err != nil {
 		return nil, err
 	}
-	// 增加task信息
-	task.AddUserInfo(userInfo.Id, userInfo.Name)
-
+	task, err := entity.NewTask(userInfo.Id, userInfo.Name, req.Title, req.Content)
+	if err != nil {
+		return nil, err
+	}
 	return s.td.CreateTask(ctx, task)
 }
 
@@ -64,16 +66,25 @@ func (s *ServiceImpl) DetailTask(ctx context.Context, req *types.DetailReq) (*en
 	if err != nil {
 		return nil, err
 	}
-	return s.td.FindTaskByTid(ctx, req.Id, userInfo.Id)
+	task, err := s.td.FindTaskByTid(ctx, req.Id, userInfo.Id)
+	if err != nil {
+		return nil, err
+	}
+	if !task.IsExist() {
+		return nil, errors.New("task not exist")
+	}
+	if !task.BelongsToUser(userInfo.Id) {
+		return nil, errors.New("user not exist")
+	}
+	return task, nil
 }
 
-func (s *ServiceImpl) UpdateTask(ctx context.Context, task *entity.Task) error {
+func (s *ServiceImpl) UpdateTask(ctx context.Context, req *types.UpdateTaskReq) error {
 	userInfo, err := ctl.GetUserInfo(ctx)
 	if err != nil {
 		return err
 	}
-	task.AddUserInfo(userInfo.Id, userInfo.Name)
-
+	task := UpdateReq2TaskEntity(userInfo.Id, userInfo.Name, req)
 	return s.td.UpdateTask(ctx, task)
 }
 
