@@ -15,6 +15,7 @@ func PO2Entity(user *User) *entity.User {
 	return &entity.User{
 		ID:        user.ID,
 		Username:  user.UserName,
+		Password:  user.PasswordDigest,
 		CreatedAt: user.CreatedAt,
 		UpdatedAt: user.UpdatedAt,
 	}

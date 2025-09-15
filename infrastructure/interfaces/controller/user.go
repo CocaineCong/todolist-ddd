@@ -33,7 +33,7 @@ func UserLoginHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req types.UserReq
 		err := ctx.ShouldBind(&req)
-		if err == nil {
+		if err != nil {
 			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, types.RespError(err, "bind req"))
 			return

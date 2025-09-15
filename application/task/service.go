@@ -6,6 +6,7 @@ import (
 
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
 	"github.com/CocaineCong/todolist-ddd/domain/task/service"
+	ctl "github.com/CocaineCong/todolist-ddd/infrastructure/common/context"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 )
 
@@ -35,39 +36,64 @@ func GetServiceImpl(srv service.TaskDomain) *ServiceImpl {
 }
 
 func (s *ServiceImpl) CreateTask(ctx context.Context, task *entity.Task) (*entity.Task, error) {
+	// 获取用户信息
+	userInfo, err := ctl.GetUserInfo(ctx)
+	if err != nil {
+		return nil, err
+	}
+	// 增加task信息
+	task.AddUserInfo(userInfo.Id, userInfo.Name)
+
 	return s.td.CreateTask(ctx, task)
 }
 
 func (s *ServiceImpl) ListTask(ctx context.Context, req *types.ListTasksReq) (any, error) {
-	list, count, err := s.td.ListTaskByUid(ctx, req.Pagination)
+	userInfo, err := ctl.GetUserInfo(ctx)
 	if err != nil {
 		return nil, err
 	}
-	var resp = types.TaskListResp
-	resp.Items = list
-	resp.Count = count
-	return resp, nil
+	list, count, err := s.td.ListTaskByUid(ctx, userInfo.Id, req.Pagination)
+	if err != nil {
+		return nil, err
+	}
+	return ListResponse(list, count), nil
 }
 
 func (s *ServiceImpl) DetailTask(ctx context.Context, req *types.DetailReq) (*entity.Task, error) {
-	return s.td.FindTaskByTid(ctx, req.Id)
+	userInfo, err := ctl.GetUserInfo(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return s.td.FindTaskByTid(ctx, req.Id, userInfo.Id)
 }
 
 func (s *ServiceImpl) UpdateTask(ctx context.Context, task *entity.Task) error {
+	userInfo, err := ctl.GetUserInfo(ctx)
+	if err != nil {
+		return err
+	}
+	task.AddUserInfo(userInfo.Id, userInfo.Name)
+
 	return s.td.UpdateTask(ctx, task)
 }
 
 func (s *ServiceImpl) SearchTask(ctx context.Context, req *types.SearchTaskReq) (any, error) {
-	list, count, err := s.td.SearchTask(ctx, req.Info, req.Pagination)
+	userInfo, err := ctl.GetUserInfo(ctx)
 	if err != nil {
 		return nil, err
 	}
-	var resp = types.TaskListResp
-	resp.Items = list
-	resp.Count = count
-	return resp, nil
+	list, count, err := s.td.SearchTask(ctx, userInfo.Id, req.Info, req.Pagination)
+	if err != nil {
+		return nil, err
+	}
+
+	return ListResponse(list, count), nil
 }
 
 func (s *ServiceImpl) DeleteTask(ctx context.Context, req *types.DeleteTaskReq) error {
-	return s.td.DeleteTask(ctx, req.Id)
+	userInfo, err := ctl.GetUserInfo(ctx)
+	if err != nil {
+		return err
+	}
+	return s.td.DeleteTask(ctx, userInfo.Id, req.Id)
 }

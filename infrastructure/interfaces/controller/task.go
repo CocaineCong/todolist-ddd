@@ -103,12 +103,12 @@ func UpdateTaskHandler() gin.HandlerFunc {
 			return
 		}
 		l := task.ServiceImplIns
-		task, err := types.UpdateReqDTO2Entity(ctx, req)
+		t, err := types.UpdateReqDTO2Entity(ctx, req)
 		if err != nil {
 			ctx.JSON(http.StatusOK, types.RespError(err, "conv failed"))
 			return
 		}
-		err = l.UpdateTask(ctx.Request.Context(), task)
+		err = l.UpdateTask(ctx.Request.Context(), t)
 		if err != nil {
 			ctx.JSON(http.StatusOK, types.RespError(err, "failed to update task"))
 			return

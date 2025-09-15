@@ -33,9 +33,6 @@ func (r *RepositoryImpl) GetUserByName(ctx context.Context, username string) (*e
 	if err != nil {
 		return nil, err
 	}
-	if u.ID == 0 {
-		return nil, errors.New("user not found")
-	}
 	return PO2Entity(u), nil
 }
 

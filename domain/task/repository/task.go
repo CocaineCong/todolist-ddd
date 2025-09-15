@@ -18,7 +18,7 @@ type TaskBase interface {
 	ListTaskByUid(ctx context.Context, uid uint, p types.Pagination) ([]*entity.Task, int64, error)
 	FindTaskByTid(ctx context.Context, tid, uid uint) (*entity.Task, error)
 	SearchTask(ctx context.Context, uid uint, keyword string, p types.Pagination) ([]*entity.Task, int64, error)
-	DeleteTask(ctx context.Context, tid, uid uint) error
+	DeleteTask(ctx context.Context, uid, tid uint) error
 }
 
 type TaskQuery interface {

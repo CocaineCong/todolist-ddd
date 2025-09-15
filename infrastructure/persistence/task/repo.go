@@ -113,7 +113,7 @@ func (r *RepositoryImpl) SearchTask(ctx context.Context, uid uint, keyword strin
 	return tasks, count, nil
 }
 
-func (r *RepositoryImpl) DeleteTask(ctx context.Context, tid, uid uint) error {
+func (r *RepositoryImpl) DeleteTask(ctx context.Context, uid, tid uint) error {
 	var tasks []*entity.Task
 	err := r.db.WithContext(ctx).Model(&Task{}).
 		Where("id = ? AND uid = ?", tid, uid).
