@@ -3,8 +3,8 @@ package initialize
 import (
 	"github.com/gin-gonic/gin"
 
-	api "github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/controller"
-	middleware "github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/midddleware"
+	api "github.com/CocaineCong/todolist-ddd/interfaces/controller"
+	middleware "github.com/CocaineCong/todolist-ddd/interfaces/midddleware"
 )
 
 func NewRouter() *gin.Engine {

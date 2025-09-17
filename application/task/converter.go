@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
+	"github.com/CocaineCong/todolist-ddd/interfaces/types"
 )
 
 func ListResponse(list []*entity.Task, count int64) types.List[*entity.Task] {

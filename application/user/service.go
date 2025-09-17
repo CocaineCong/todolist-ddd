@@ -8,7 +8,7 @@ import (
 	"github.com/CocaineCong/todolist-ddd/domain/user/entity"
 	"github.com/CocaineCong/todolist-ddd/domain/user/service"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/auth"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
+	"github.com/CocaineCong/todolist-ddd/interfaces/types"
 )
 
 type Service interface {

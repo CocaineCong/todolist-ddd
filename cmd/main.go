@@ -4,8 +4,8 @@ import (
 	config "github.com/CocaineCong/todolist-ddd/conf"
 	"github.com/CocaineCong/todolist-ddd/domain"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/common/log"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/adapter/initialize"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/persistence/dbs"
+	"github.com/CocaineCong/todolist-ddd/interfaces/adapter/initialize"
 )
 
 func main() {

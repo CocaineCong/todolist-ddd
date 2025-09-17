@@ -7,8 +7,8 @@ import (
 
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/consts"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/interfaces/types"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/persistence/user"
+	"github.com/CocaineCong/todolist-ddd/interfaces/types"
 )
 
 type RepositoryImpl struct {
