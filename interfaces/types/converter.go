@@ -12,7 +12,6 @@ func Entity2TaskResp(task *entity.Task) *TaskResp {
 		Content:   task.Content,
 		View:      0,
 		Status:    task.Status,
-		CreatedAt: task.CreatedAt.Unix(),
 		StartTime: task.StartTime,
 		EndTime:   task.EndTime,
 	}

@@ -14,7 +14,7 @@ func CreateTaskHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var req *types.CreateTaskReq
 		err := ctx.ShouldBind(&req)
-		if err == nil {
+		if err != nil {
 			log.LogrusObj.Infoln(err)
 			ctx.JSON(http.StatusOK, types.RespError(err, "invalid request"))
 			return
@@ -43,7 +43,7 @@ func ListTaskHandler() gin.HandlerFunc {
 			ctx.JSON(http.StatusOK, types.RespError(err, "failed to list task"))
 			return
 		}
-		ctx.JSON(http.StatusOK, resp)
+		ctx.JSON(http.StatusOK, types.RespSuccessWithData(resp))
 	}
 }
 

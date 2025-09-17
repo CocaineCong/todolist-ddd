@@ -55,9 +55,9 @@ func (r *RepositoryImpl) CreateTask(ctx context.Context, in *entity.Task) (*enti
 func (r *RepositoryImpl) FindTaskByTid(ctx context.Context, taskId, userId uint) (*entity.Task, error) {
 	task := &entity.Task{}
 	err := r.db.WithContext(ctx).Model(&Task{}).
-		Joins("AS t LEFT JOIN user AS u ON t.uid = u.id").
-		Where("t.id = ? AND u.id ? ", taskId, userId).
-		Select("u.id AS uid, u.user_name, t.*").Find(&task).Error
+		Joins("AS task LEFT JOIN user AS u ON task.uid = u.id").
+		Where("task.id = ? AND u.id = ? ", taskId, userId).
+		Select("u.id AS uid, u.user_name, task.*").Find(&task).Error
 	if err != nil {
 		return nil, err
 	}
@@ -68,10 +68,10 @@ func (r *RepositoryImpl) ListTaskByUid(ctx context.Context, uid uint, p types.Pa
 	var tasks []*entity.Task
 	var count int64
 	err := r.db.WithContext(ctx).Model(&Task{}).
-		Joins("AS t LEFT JOIN user AS u ON t.uid = u.id").
+		Joins("AS task LEFT JOIN user AS u ON task.uid = u.id").
 		Where("u.id = ?", uid).Count(&count).
 		Scopes(Paginate(p)).
-		Select("u.id AS uid, u.user_name, t.*").Find(&tasks).Error
+		Select("u.id AS uid, u.user_name, task.*").Find(&tasks).Error
 	if err != nil {
 		return nil, count, err
 	}
@@ -106,6 +106,7 @@ func (r *RepositoryImpl) SearchTask(ctx context.Context, uid uint, keyword strin
 		Where("title LIKE ? OR content LIKE ?", "%"+keyword+"%", "%"+keyword+"%").
 		Count(&count).
 		Scopes(Paginate(p)).
+		Select("id, uid, title, status, content, start_time, end_time").
 		Find(&tasks).Error
 	if err != nil {
 		return nil, count, err
@@ -114,10 +115,9 @@ func (r *RepositoryImpl) SearchTask(ctx context.Context, uid uint, keyword strin
 }
 
 func (r *RepositoryImpl) DeleteTask(ctx context.Context, uid, tid uint) error {
-	var tasks []*entity.Task
 	err := r.db.WithContext(ctx).Model(&Task{}).
 		Where("id = ? AND uid = ?", tid, uid).
-		Find(&tasks).Error
+		Delete(&Task{}).Error
 	if err != nil {
 		return err
 	}

@@ -14,8 +14,9 @@ func ListResponse(list []*entity.Task, count int64) types.List[*entity.Task] {
 	}
 }
 
-func UpdateReq2TaskEntity(uid uint, username string, req *types.UpdateTaskReq) *entity.Task {
+func UpdateReq2TaskEntity(tid, uid uint, username string, req *types.UpdateTaskReq) *entity.Task {
 	return &entity.Task{
+		Id:        tid,
 		Uid:       uid,
 		UserName:  username,
 		Title:     req.Title,

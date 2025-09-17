@@ -84,7 +84,7 @@ func (s *ServiceImpl) UpdateTask(ctx context.Context, req *types.UpdateTaskReq) 
 	if err != nil {
 		return err
 	}
-	task := UpdateReq2TaskEntity(userInfo.Id, userInfo.Name, req)
+	task := UpdateReq2TaskEntity(req.ID, userInfo.Id, userInfo.Name, req)
 	return s.td.UpdateTask(ctx, task)
 }
 
