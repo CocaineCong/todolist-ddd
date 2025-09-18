@@ -1,15 +1,9 @@
 package types
 
-import (
-	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
-)
-
 type List[T any] struct {
 	Count int64 `json:"count"`
 	Items []T   `json:"items"`
 }
-
-var TaskListResp = List[*entity.Task]{}
 
 type DetailReq struct {
 	Id uint `json:"id" form:"id"`

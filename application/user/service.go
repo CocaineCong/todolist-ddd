@@ -46,11 +46,6 @@ func (s *ServiceImpl) Register(ctx context.Context, userEntity *entity.User) (an
 	if userExist.IsActive() {
 		return nil, errors.New("user exist")
 	}
-	// 加密
-	err = userEntity.EncryptPwd(userEntity.Password)
-	if err != nil {
-		return nil, err
-	}
 	// 创建用户
 	user, err := s.ud.CreateUser(ctx, userEntity)
 	if err != nil {
@@ -68,7 +63,7 @@ func (s *ServiceImpl) Login(ctx context.Context, entity *entity.User) (any, erro
 	}
 
 	// 检查密码
-	err = user.CheckPwd(entity.Password)
+	err = s.ud.CheckUserPwd(ctx, user, entity.Password)
 	if err != nil {
 		return nil, errors.New("invalid password")
 	}

@@ -5,8 +5,8 @@ import (
 
 	"gorm.io/gorm"
 
+	"github.com/CocaineCong/todolist-ddd/consts"
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/consts"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/persistence/user"
 	"github.com/CocaineCong/todolist-ddd/interfaces/types"
 )

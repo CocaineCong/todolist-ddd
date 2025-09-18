@@ -2,18 +2,19 @@ package encrypt
 
 import (
 	"golang.org/x/crypto/bcrypt"
+
+	"github.com/CocaineCong/todolist-ddd/domain/user/repository"
 )
 
 type PwdEncryptService struct {
-	Base
 }
 
 const (
 	PassWordCost = 12 // 密码加密难度
 )
 
-func NewPwdEncryptService() PwdEncryptService {
-	return PwdEncryptService{}
+func NewPwdEncryptService() repository.PwdEncrypt {
+	return &PwdEncryptService{}
 }
 
 func (p *PwdEncryptService) Encrypt(pwd []byte) ([]byte, error) {

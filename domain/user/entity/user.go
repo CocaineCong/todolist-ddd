@@ -1,11 +1,9 @@
 package entity
 
 import (
-	"errors"
 	"time"
 
-	"github.com/CocaineCong/todolist-ddd/infrastructure/consts"
-	"github.com/CocaineCong/todolist-ddd/infrastructure/encrypt"
+	"github.com/CocaineCong/todolist-ddd/consts"
 )
 
 type User struct {
@@ -21,23 +19,9 @@ func (u *User) IsValidUserName() bool {
 		len(u.Username) <= consts.UserNameLengthMax
 }
 
-func (u *User) EncryptPwd(pwd string) error {
-	ps := encrypt.NewPwdEncryptService()
-	password, err := ps.Encrypt([]byte(pwd))
-	if err != nil {
-		return err
-	}
-	u.Password = string(password)
+func (u *User) SetPwd(pwd []byte) error {
+	u.Password = string(pwd)
 	u.UpdatedAt = time.Now()
-	return nil
-}
-
-func (u *User) CheckPwd(src string) error {
-	ps := encrypt.NewPwdEncryptService()
-	check := ps.Check([]byte(u.Password), []byte(src))
-	if !check {
-		return errors.New("wrong password")
-	}
 	return nil
 }
 

@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/CocaineCong/todolist-ddd/infrastructure/consts"
+	"github.com/CocaineCong/todolist-ddd/consts"
 )
 
 // Response 基础序列化器
