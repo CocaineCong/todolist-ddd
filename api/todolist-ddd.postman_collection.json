@@ -1,0 +1,807 @@
+{
+	"info": {
+		"_postman_id": "bb54e5b3-09b8-4b7f-8528-2158e0ef84e9",
+		"name": "todolist-ddd",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10242828"
+	},
+	"item": [
+		{
+			"name": "用户操作",
+			"item": [
+				{
+					"name": "用户注册",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "refresh_token",
+								"value": "{{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\":\"fanone\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/user/register",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "用户注册成功",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access_token",
+										"value": "{{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "refresh_token",
+										"value": "{{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_name\":\"fanone\",\n    \"password\":\"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}api/v1/user/register",
+									"host": [
+										"{{url}}api"
+									],
+									"path": [
+										"v1",
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Sep 2025 16:54:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "120"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"id\": 1,\n        \"user_name\": \"fanone\",\n        \"create_at\": 1757868894\n    },\n    \"msg\": \"操作成功\",\n    \"error\": \"\",\n    \"track_id\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "用户登陆",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\":\"fanone\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/user/login",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "用户登陆",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_name\":\"fanone\",\n    \"password\":\"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}api/v1/user/login",
+									"host": [
+										"{{url}}api"
+									],
+									"path": [
+										"v1",
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Sep 2025 17:05:44 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "304"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"user\": {\n            \"id\": 1,\n            \"user_name\": \"fanone\",\n            \"create_at\": 1757868894\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJmYW5vbmUiLCJleHAiOjE3NTc5NTU5NDQsImlzcyI6InRvZG9saXN0In0.a5bTOx3OkmsxA5uq7zGbyZwNbZT5mv4fJyBNFpP6MZM\"\n    },\n    \"msg\": \"操作成功\",\n    \"error\": \"\",\n    \"track_id\": \"\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "备忘录操作",
+			"item": [
+				{
+					"name": "创建备忘录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"一键三连\",\n    \"content\": \"点赞，投币，转发，收藏\",\n    \"status\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/task/create",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"task",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "成功",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"一键三连\",\n    \"content\": \"点赞，投币，转发，收藏\",\n    \"status\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}api/v1/task/create",
+									"host": [
+										"{{url}}api"
+									],
+									"path": [
+										"v1",
+										"task",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Sep 2025 16:58:36 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "162"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"title\": \"一键三连\",\n        \"content\": \"点赞，投币，转发，收藏\",\n        \"start_time\": 1758128316\n    },\n    \"msg\": \"操作成功\",\n    \"error\": \"\",\n    \"track_id\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "更新备忘录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"title\": \"一键五连\",\n    \"content\": \"点赞，投币，转发，收藏\",\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/task/update",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"task",
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "更新备忘录",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 2,\n    \"title\": \"一键五连\",\n    \"content\": \"点赞，投币，转发，收藏\",\n    \"status\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}api/v1/task/update",
+									"host": [
+										"{{url}}api"
+									],
+									"path": [
+										"v1",
+										"task",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Sep 2025 17:45:58 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": \"操作成功\",\n    \"msg\": \"操作成功\",\n    \"error\": \"\",\n    \"track_id\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "备忘录列表",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/v1/task/list?page=1&page_size=1",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"task",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "page_size",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "备忘录列表",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}api/v1/task/list?page=1&page_size=1",
+									"host": [
+										"{{url}}api"
+									],
+									"path": [
+										"v1",
+										"task",
+										"list"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "page_size",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Sep 2025 17:37:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "316"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"count\": 3,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"uid\": 1,\n                \"user_name\": \"fanone\",\n                \"title\": \"一键三连\",\n                \"status\": 0,\n                \"content\": \"点赞，投币，转发，收藏\",\n                \"start_time\": 1758128168,\n                \"end_time\": 0,\n                \"created_at\": \"2025-09-17T16:56:08Z\",\n                \"updated_at\": \"2025-09-17T16:56:08Z\"\n            }\n        ]\n    },\n    \"msg\": \"操作成功\",\n    \"error\": \"\",\n    \"track_id\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "备忘录详情",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/v1/task/detail?id=1",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"task",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "备忘录详情",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}api/v1/task/detail?id=1",
+									"host": [
+										"{{url}}api"
+									],
+									"path": [
+										"v1",
+										"task",
+										"detail"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Sep 2025 17:39:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "169"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"id\": 1,\n        \"title\": \"一键三连\",\n        \"content\": \"点赞，投币，转发，收藏\",\n        \"start_time\": 1758128168\n    },\n    \"msg\": \"操作成功\",\n    \"error\": \"\",\n    \"track_id\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "搜索备忘录",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"info\": \"一\",\n    \"page\": 1,\n    \"page_size\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/task/search",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"task",
+								"search"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "搜索备忘录",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"info\": \"一\",\n    \"page\": 1,\n    \"page_size\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}api/v1/task/search",
+									"host": [
+										"{{url}}api"
+									],
+									"path": [
+										"v1",
+										"task",
+										"search"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Sep 2025 17:43:32 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "531"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"count\": 3,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"uid\": 1,\n                \"user_name\": \"\",\n                \"title\": \"一键三连\",\n                \"status\": 0,\n                \"content\": \"点赞，投币，转发，收藏\",\n                \"start_time\": 1758128168,\n                \"end_time\": 0,\n                \"created_at\": \"0001-01-01T00:00:00Z\",\n                \"updated_at\": \"0001-01-01T00:00:00Z\"\n            },\n            {\n                \"id\": 2,\n                \"uid\": 1,\n                \"user_name\": \"\",\n                \"title\": \"一键三连\",\n                \"status\": 0,\n                \"content\": \"点赞，投币，转发，收藏\",\n                \"start_time\": 1758128212,\n                \"end_time\": 0,\n                \"created_at\": \"0001-01-01T00:00:00Z\",\n                \"updated_at\": \"0001-01-01T00:00:00Z\"\n            }\n        ]\n    },\n    \"msg\": \"操作成功\",\n    \"error\": \"\",\n    \"track_id\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "删除备忘录",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/task/delete",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"task",
+								"delete"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "删除备忘录",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}api/v1/task/delete",
+									"host": [
+										"{{url}}api"
+									],
+									"path": [
+										"v1",
+										"task",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Sep 2025 17:48:48 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": \"操作成功\",\n    \"msg\": \"操作成功\",\n    \"error\": \"\",\n    \"track_id\": \"\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "refresh_token",
+						"value": "{{refresh_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}api/v1/ping",
+					"host": [
+						"{{url}}api"
+					],
+					"path": [
+						"v1",
+						"ping"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "refresh_token",
+								"value": "{{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/v1/ping",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"ping"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 14 Sep 2025 03:46:08 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "9"
+						}
+					],
+					"cookie": [],
+					"body": "\"success\""
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
