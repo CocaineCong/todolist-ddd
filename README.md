@@ -81,7 +81,7 @@
 1. 环境准备
 
 ```shell
-docker-compose up -f docker-compose.yml
+docker-compose -f docker-compose.yml up
 ```
 
 2. 启动
