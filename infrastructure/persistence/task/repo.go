@@ -7,6 +7,7 @@ import (
 
 	"github.com/CocaineCong/todolist-ddd/consts"
 	"github.com/CocaineCong/todolist-ddd/domain/task/entity"
+	"github.com/CocaineCong/todolist-ddd/domain/task/repository"
 	"github.com/CocaineCong/todolist-ddd/infrastructure/persistence/user"
 	"github.com/CocaineCong/todolist-ddd/interfaces/types"
 )
@@ -15,7 +16,7 @@ type RepositoryImpl struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) *RepositoryImpl {
+func NewRepository(db *gorm.DB) repository.Task {
 	return &RepositoryImpl{
 		db: db,
 	}
